@@ -1,0 +1,8 @@
+# Local DevForge output logs & credentials files
+install.log
+devforge-output.json
+
+# Text backups & temporary editor files
+*.bak
+*~
+.DS_Store

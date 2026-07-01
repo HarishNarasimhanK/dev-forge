@@ -1,0 +1,6 @@
+# DevForge Cargo Package Dependencies
+# These crates will be installed via cargo install.
+
+# Cargo helpers
+cargo-edit
+cargo-watch

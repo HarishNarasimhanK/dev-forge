@@ -1,0 +1,67 @@
+# DevForge Zsh Config
+
+# PATH config
+export PATH="$HOME/.local/bin:$PATH"
+
+if [[ -d "$HOME/.cargo/bin" ]]; then
+    export PATH="$HOME/.cargo/bin:$PATH"
+fi
+
+if [[ -d "$HOME/go/bin" ]]; then
+    export PATH="$HOME/go/bin:$PATH"
+fi
+
+# History
+HISTSIZE=100000
+SAVEHIST=100000
+setopt APPEND_HISTORY
+setopt SHARE_HISTORY
+setopt HIST_IGNORE_DUPS
+setopt HIST_IGNORE_SPACE
+
+# Completions
+autoload -Uz compinit
+compinit
+
+# Install zsh-autosuggestions
+if [[ ! -d "$HOME/.zsh/zsh-autosuggestions" ]]; then
+    mkdir -p "$HOME/.zsh"
+    git clone --depth 1 https://github.com/zsh-users/zsh-autosuggestions "$HOME/.zsh/zsh-autosuggestions" &>/dev/null &
+fi
+
+# Load zsh-autosuggestions
+if [[ -f "$HOME/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh" ]]; then
+    source "$HOME/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh"
+fi
+
+# Load Zoxide
+if command -v zoxide &>/dev/null; then
+    eval "$(zoxide init zsh)"
+fi
+
+# Load Starship
+if command -v starship &>/dev/null; then
+    eval "$(starship init zsh)"
+fi
+
+# Load Fzf
+if command -v fzf &>/dev/null; then
+    source <(fzf --zsh)
+fi
+
+# Aliases
+alias ls="eza --icons"
+alias ll="eza -lah --icons"
+alias la="eza -la --icons"
+alias cat="bat"
+alias ..="cd .."
+alias ...="cd ../.."
+alias gs="git status"
+alias ga="git add"
+alias gc="git commit"
+alias gp="git push"
+alias gl="git pull"
+alias gco="git checkout"
+alias python="python3"
+alias pip="pip3"
+alias c="clear"

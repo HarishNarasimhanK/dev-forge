@@ -1,0 +1,21 @@
+# DevForge Python Library Requirements
+# This file lists packages to install on the system Python and the uv environment.
+# Comments starting with # and empty lines are ignored during execution.
+
+# Software Development & Networking Utilities
+requests
+urllib3
+pytest
+black
+pydantic
+
+# AI / ML Core Libraries (Lightweight)
+numpy
+pandas
+matplotlib
+scikit-learn
+scipy
+
+# Cyber / Networking Core Libraries
+scapy
+cryptography

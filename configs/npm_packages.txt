@@ -1,0 +1,13 @@
+# DevForge Global NPM Package Dependencies
+# These packages will be installed globally via npm install -g.
+
+# TypeScript Utilities
+typescript
+ts-node
+
+# Node Development Utilities
+nodemon
+
+# Linting & Formatting
+eslint
+prettier

@@ -1,0 +1,8 @@
+# DevForge Go Command Dependencies
+# These tools will be installed via go install <package>.
+
+# Go Language Server
+golang.org/x/tools/gopls@latest
+
+# Go Debugger
+github.com/go-delve/delve/cmd/dlv@latest

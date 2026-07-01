@@ -1,0 +1,62 @@
+#!/usr/bin/env bash
+# DevForge (dforge) Command-Line Interface Wrapper
+set -euo pipefail
+
+# Resolve repository root handling symlinks dynamically
+SOURCE="${BASH_SOURCE[0]}"
+while [ -h "$SOURCE" ]; do
+    DIR="$(cd -P "$(dirname "$SOURCE")" && pwd)"
+    SOURCE="$(readlink "$SOURCE")"
+    [[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE"
+done
+REPO_ROOT="$(cd -P "$(dirname "$SOURCE")" && pwd)"
+
+VERSION="0.1.0"
+
+show_help() {
+    cat << EOF
+DevForge CLI (dforge) - Workstation bootstrap and environment manager.
+
+Usage:
+  dforge init              Run workstation bootstrap setup
+  dforge install           Orchestrate package installations
+  dforge doctor            Run environment diagnostics validation
+  dforge test              Run static shellcheck linter and BATS tests
+  dforge update            Pull updates from repository and sync packages
+  dforge version           Display DevForge CLI version info
+  dforge help | --help     Display this help menu
+EOF
+}
+
+case "${1:-help}" in
+    init)
+        bash "${REPO_ROOT}/bootstrap.sh"
+        ;;
+    install)
+        bash "${REPO_ROOT}/scripts/install.sh"
+        ;;
+    doctor)
+        bash "${REPO_ROOT}/scripts/verify.sh"
+        ;;
+    test)
+        bash "${REPO_ROOT}/scripts/test.sh"
+        ;;
+    update)
+        echo "Updating DevForge repository..."
+        cd "${REPO_ROOT}"
+        git pull
+        echo "Synchronizing package installations..."
+        bash "${REPO_ROOT}/scripts/install.sh"
+        ;;
+    version|--version|-v)
+        echo "DevForge CLI v${VERSION}"
+        ;;
+    help|--help|-h)
+        show_help
+        ;;
+    *)
+        echo "Error: Unknown command '$1'" >&2
+        show_help >&2
+        exit 1
+        ;;
+esac
