@@ -1,8 +1,24 @@
 # DevForge
 
-> **Developer environment automation.** A cross-platform, idempotent workstation bootstrapper that provisions a complete developer environment in a single command — no manual steps, no configuration drift.
+> **Automated, friction-free developer environment provisioning.**
 
 Target-optimized for **Windows WSL2 (Ubuntu)** and **macOS (Homebrew)**.
+
+---
+
+## 💡 The Problem & First Principles
+
+Setting up a local development environment is a recurring friction point for developers. Whether you are configuring a newly bought laptop, spinning up a fresh EC2 instance, or initializing a new WSL environment:
+* **Time-consuming:** Installing compiler runtimes, cloud utilities, shell prompts, and editor configs manually takes hours of copy-pasting commands.
+* **Configuration Drift:** Subtle differences in command-line arguments, packages, or versions cause unexpected bugs and "works on my machine" issues across developers.
+* **Fragile Scripts:** Generic setup scripts are rarely idempotent, failing when run multiple times or conflicting with existing files.
+
+### The DevForge Solution
+DevForge automates this entire workspace setup into a single command. 
+
+To make it as frictionless as possible, we don't just supply raw scripts. We package and distribute DevForge natively through **APT** and **Homebrew**, making installation, globally available execution, and version upgrades as simple as managing system packages.
+
+*Note: This is the `v1` release of DevForge. We plan to expand support to other Linux distributions and automate custom dotfile profiles in future versions.*
 
 ---
 
