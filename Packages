@@ -1,13 +1,13 @@
 Package: devforge
-Version: 0.1.9
+Version: 0.1.10
 Architecture: all
 Maintainer: Harish Narasimhan <harish@example.com>
 Depends: curl, git, unzip, bash (>=4.4)
-Filename: ./devforge_0.1.9_all.deb
-Size: 558126
-MD5sum: 18af446ac0c4cc75d4b50a539c39d18f
-SHA1: 2d5ca219c1869fd748da18071b20ab78c62b010e
-SHA256: cf0713d433f83e79a6f3d8530c3eeedfc437e30b3d53342e425bceb5249ce375
+Filename: ./devforge_0.1.10_all.deb
+Size: 975206
+MD5sum: 11cbecf97a19a08de3d03910af1e675f
+SHA1: e9b9b82d4c4c276853d88ff4ad27efd4e37c89d7
+SHA256: 94c9795e840a42d0d4c05047a191db58658d4003c65d140760d2fc9f0c421d8f
 Description: Developer‑environment automation bootstrapper
- This package provides the  CLI and the full bootstrap script.
+ This package provides the dforge CLI and the full bootstrap script.
 
