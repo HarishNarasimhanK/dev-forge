@@ -8,6 +8,6 @@ Architectures: all
 Date: $(date -R)
 Description: DevForge Debian/Ubuntu APT repository
 MD5Sum:
- 9e30c0e0647929c1d335e9613c155cf3 377 Packages.gz
+ 64c1d0fce7cabebf4801f5c58946dab4 377 Packages.gz
 SHA256:
- 8b29df86e562c67552879d783b42bd09ddfab4df614589a95dc754d50ee0aef2 377 Packages.gz
+ 8261133de34c1611284cdb627fce81615dbdf719d6335f35a0419072a5e2d5f7 377 Packages.gz
