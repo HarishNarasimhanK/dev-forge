@@ -1,8 +1,30 @@
 # DevForge
 
-> A cross-platform, idempotent workstation bootstrapper that provisions a complete developer environment in a single command.
+> **Developer environment automation.** A cross-platform, idempotent workstation bootstrapper that provisions a complete developer environment in a single command — no manual steps, no configuration drift.
 
 Target-optimized for **Windows WSL2 (Ubuntu)** · Extensible to **macOS (Homebrew)**
+
+---
+
+## What is DevForge?
+
+DevForge is a shell-native workstation provisioner. Clone it, run one command, and walk away with a fully configured development machine — runtimes, cloud CLIs, AI coding assistants, shell environment, and dotfiles, all verified.
+
+Zero external dependencies beyond `curl`, `git`, and `unzip`.
+
+---
+
+## Why DevForge?
+
+Setting up a new machine is a repetitive, error-prone ritual — install Node, configure nvm, set up Python, wire up Java via SDKMAN, copy-paste your dotfiles, forget half of it. Repeat for every new laptop, VM, or WSL instance.
+
+DevForge encodes that ritual as code, guided by five principles:
+
+- **Reproducible** — every tool and version is a specification, not a memory.
+- **Idempotent** — safe to re-run; never overwrites your existing customizations.
+- **Non-interactive** — no prompts mid-install; one sudo password at startup, nothing else.
+- **Config-driven** — toggle any feature in `configs/default.env`, no script edits needed.
+- **Observable** — `dforge doctor` gives a live color-coded health report of your environment.
 
 ---
 
