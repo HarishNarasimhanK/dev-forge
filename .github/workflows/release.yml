@@ -80,7 +80,8 @@ jobs:
           cd repo-ghpages
           
           # Run repo update script logic locally on the gh-pages workspace
-          dpkg-scanpackages . /dev/null | gzip -9c > Packages.gz
+          dpkg-scanpackages . /dev/null > Packages
+          gzip -9c Packages > Packages.gz
           
           # Generate Release metadata
           cat > Release <<EOF
@@ -99,13 +100,20 @@ jobs:
           
           # Append hash sums
           echo "MD5Sum:" >> Release
-          md5_pkg=$(md5sum Packages.gz | awk '{print $1}')
-          size_pkg=$(wc -c < Packages.gz | tr -d ' ')
-          echo " $md5_pkg $size_pkg Packages.gz" >> Release
+          md5_pkg=$(md5sum Packages | awk '{print $1}')
+          size_pkg=$(wc -c < Packages | tr -d ' ')
+          echo " $md5_pkg $size_pkg Packages" >> Release
+          md5_pkg_gz=$(md5sum Packages.gz | awk '{print $1}')
+          size_pkg_gz=$(wc -c < Packages.gz | tr -d ' ')
+          echo " $md5_pkg_gz $size_pkg_gz Packages.gz" >> Release
           
           echo "SHA256:" >> Release
-          sha_pkg=$(sha256sum Packages.gz | awk '{print $1}')
-          echo " $sha_pkg $size_pkg Packages.gz" >> Release
+          sha_pkg=$(sha256sum Packages | awk '{print $1}')
+          size_pkg=$(wc -c < Packages | tr -d ' ')
+          echo " $sha_pkg $size_pkg Packages" >> Release
+          sha_pkg_gz=$(sha256sum Packages.gz | awk '{print $1}')
+          size_pkg_gz=$(wc -c < Packages.gz | tr -d ' ')
+          echo " $sha_pkg_gz $size_pkg_gz Packages.gz" >> Release
           
           # Sign the Release files using loopback passphrase if set
           gpg_opts="--batch --pinentry-mode loopback"

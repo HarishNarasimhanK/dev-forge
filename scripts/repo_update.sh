@@ -8,7 +8,7 @@ set -euo pipefail
 # directory, runs dpkg-scanpackages to create/update Packages.gz,
 # generates the Release file, and signs it.
 
-REPO_DIR="repo"
+REPO_DIR="${REPO_DIR:-repo}"
 mkdir -p "$REPO_DIR"
 
 # Copy newly built .deb file into repo directory
@@ -26,7 +26,8 @@ if ! command -v dpkg-scanpackages &> /dev/null; then
 fi
 
 echo "Scanning packages..."
-dpkg-scanpackages "$REPO_DIR" /dev/null | gzip -9c > "$REPO_DIR/Packages.gz"
+dpkg-scanpackages "$REPO_DIR" /dev/null > "$REPO_DIR/Packages"
+gzip -9c "$REPO_DIR/Packages" > "$REPO_DIR/Packages.gz"
 
 # Create Release file
 echo "Generating Release metadata..."
@@ -42,15 +43,22 @@ Date: $(date -R)
 Description: DevForge Debian/Ubuntu APT repository
 EOF
 
-# Append MD5Sum and SHA256 sum of Packages.gz to Release file
+# Append MD5Sum and SHA256 sum of Packages and Packages.gz to Release file
 echo "MD5Sum:" >> "$REPO_DIR/Release"
-md5_pkg=$(md5sum "$REPO_DIR/Packages.gz" | awk '{print $1}')
-size_pkg=$(wc -c < "$REPO_DIR/Packages.gz" | tr -d ' ')
-echo " $md5_pkg $size_pkg Packages.gz" >> "$REPO_DIR/Release"
+md5_pkg=$(md5sum "$REPO_DIR/Packages" | awk '{print $1}')
+size_pkg=$(wc -c < "$REPO_DIR/Packages" | tr -d ' ')
+echo " $md5_pkg $size_pkg Packages" >> "$REPO_DIR/Release"
+md5_pkg_gz=$(md5sum "$REPO_DIR/Packages.gz" | awk '{print $1}')
+size_pkg_gz=$(wc -c < "$REPO_DIR/Packages.gz" | tr -d ' ')
+echo " $md5_pkg_gz $size_pkg_gz Packages.gz" >> "$REPO_DIR/Release"
 
 echo "SHA256:" >> "$REPO_DIR/Release"
-sha_pkg=$(sha256sum "$REPO_DIR/Packages.gz" | awk '{print $1}')
-echo " $sha_pkg $size_pkg Packages.gz" >> "$REPO_DIR/Release"
+sha_pkg=$(sha256sum "$REPO_DIR/Packages" | awk '{print $1}')
+size_pkg=$(wc -c < "$REPO_DIR/Packages" | tr -d ' ')
+echo " $sha_pkg $size_pkg Packages" >> "$REPO_DIR/Release"
+sha_pkg_gz=$(sha256sum "$REPO_DIR/Packages.gz" | awk '{print $1}')
+size_pkg_gz=$(wc -c < "$REPO_DIR/Packages.gz" | tr -d ' ')
+echo " $sha_pkg_gz $size_pkg_gz Packages.gz" >> "$REPO_DIR/Release"
 
 # Sign the Release file if GPG_KEYID is set
 if [[ -n "${GPG_KEYID-}" ]]; then
