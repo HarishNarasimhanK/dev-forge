@@ -32,6 +32,11 @@ EOF
 install -m 0755 dforge "$BUILD_DIR/usr/local/bin/"
 # Copy everything (scripts, docs, assets) – adjust if you want a slimmer package
 cp -r * "$BUILD_DIR/usr/local/share/dev-forge/"
+
+# Dynamically set the correct version inside the packaged dforge wrapper script
+sed -i "s/VERSION=\"0.1.0\"/VERSION=\"$VERSION\"/g" "$BUILD_DIR/usr/local/bin/dforge"
+sed -i "s/VERSION=\"0.1.0\"/VERSION=\"$VERSION\"/g" "$BUILD_DIR/usr/local/share/dev-forge/dforge"
+
 # Remove self-built packages/repositories and temporary directories if they were copied in
 rm -f "$BUILD_DIR/usr/local/share/dev-forge/devforge_"*.deb
 rm -rf "$BUILD_DIR/usr/local/share/dev-forge/repo"
