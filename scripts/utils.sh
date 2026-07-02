@@ -75,7 +75,7 @@ load_config() {
             if [[ -n "$line" && "$line" == *"="* ]]; then
                 local var_name="${line%%=*}"
                 if [[ -z "${!var_name:-}" ]]; then
-                    export "$line"
+                    export "${line?}"
                 fi
             fi
         done < "$config_path"

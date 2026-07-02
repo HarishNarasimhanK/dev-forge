@@ -2,46 +2,25 @@
 
 > **Developer environment automation.** A cross-platform, idempotent workstation bootstrapper that provisions a complete developer environment in a single command — no manual steps, no configuration drift.
 
-Target-optimized for **Windows WSL2 (Ubuntu)** · Extensible to **macOS (Homebrew)**
+Target-optimized for **Windows WSL2 (Ubuntu)** and **macOS (Homebrew)**.
 
 ---
 
-## What is DevForge?
+## High-Level Design (HLD)
 
-DevForge is a shell-native workstation provisioner. Clone it, run one command, and walk away with a fully configured development machine — runtimes, cloud CLIs, AI coding assistants, shell environment, and dotfiles, all verified.
+### Workstation Bootstrap Lifecycle
 
-Zero external dependencies beyond `curl`, `git`, and `unzip`.
+![DevForge Bootstrap Flow](assets/devforge_hld_arch.png)
 
----
+### Software Architecture Diagram
 
-## Why DevForge?
-
-Setting up a new machine is a repetitive, error-prone ritual — install Node, configure nvm, set up Python, wire up Java via SDKMAN, copy-paste your dotfiles, forget half of it. Repeat for every new laptop, VM, or WSL instance.
-
-DevForge encodes that ritual as code, guided by five principles:
-
-- **Reproducible** — every tool and version is a specification, not a memory.
-- **Idempotent** — safe to re-run; never overwrites your existing customizations.
-- **Non-interactive** — no prompts mid-install; one sudo password at startup, nothing else.
-- **Config-driven** — toggle any feature in `configs/default.env`, no script edits needed.
-- **Observable** — `dforge doctor` gives a live color-coded health report of your environment.
+![DevForge Software Architecture](assets/devforge_hld.png)
 
 ---
 
-## Architecture
-
-![DevForge HLD Architecture](assets/devforge_hld.png)
-
----
-
-## 🚀 Quick Start
-
-> [!IMPORTANT]
-> **Windows Users**: DevForge runs inside WSL2 (Windows Subsystem for Linux). If you do not have WSL2 set up yet, please follow the step-by-step [WSL Setup Guide](docs/wsl-setup.md) first.
+## 🚀 Installation & Setup
 
 ### Method 1: APT Installation (Ubuntu / WSL - Recommended)
-
-For Debian-based systems and WSL Ubuntu environments, you can install and update DevForge using the native APT package manager:
 
 ```bash
 # Add the repository and GPG signing key
@@ -50,41 +29,24 @@ curl -fsSL https://harishnarasimhank.github.io/dev-forge/install-devforge.sh | s
 # Install devforge
 sudo apt install -y devforge
 
-# Bootstrap the workstation
+# Bootstrap your workstation
 dforge init
 ```
 
 ### Method 2: Homebrew Installation (macOS & Linux)
 
-For macOS or systems using Homebrew, you can install and update DevForge using your custom tap:
-
 ```bash
-# Tap the repository
+# Tap your custom repository
 brew tap harishnarasimhank/devforge
 
 # Install devforge
 brew install devforge
 
-# Bootstrap the workstation
+# Bootstrap your workstation
 dforge init
 ```
 
-### Method 3: Manual Git Clone (Development)
-
-If you want to modify DevForge directly or run it from source:
-
-#### Step 1: Ensure Git/Command Line Tools are Installed
-
-**Ubuntu / WSL**:
-```bash
-sudo apt update && sudo apt install -y git
-```
-**macOS**:
-```bash
-xcode-select --install
-```
-
-#### Step 2: Clone and Bootstrap
+### Method 3: Manual Clone (Development / Source Run)
 
 ```bash
 git clone https://github.com/HarishNarasimhanK/dev-forge.git
@@ -92,81 +54,45 @@ cd dev-forge
 ./dforge init
 ```
 
-That's it. DevForge will provision your full workstation and print a diagnostic summary when done.
+---
+
+## 🖥️ Command Line Interface
+
+Once installed, the `dforge` command is globally available.
+
+```bash
+dforge init       # Run the full workstation bootstrap
+dforge install    # Run installer scripts only
+dforge doctor     # Run environment diagnostics and health checks
+dforge test       # Run ShellCheck syntax linter and bats unit tests
+dforge update     # Pull updates from git and sync packages
+dforge version    # Print the current CLI release version
+```
 
 ---
 
-## 🖥️ `dforge` CLI
+## 🧪 Running Tests
 
-After bootstrapping, the `dforge` command is globally available from any directory.
+We run tests using **ShellCheck** for static analysis and **bats-core** for unit testing:
 
-| Command | Description |
-|---|---|
-| `dforge init` | Run the full workstation bootstrap |
-| `dforge install` | Run the package installer dispatcher only |
-| `dforge doctor` | Print a live environment diagnostics report |
-| `dforge test` | Run ShellCheck linter + BATS unit tests |
-| `dforge update` | Pull the latest repository changes and re-sync packages |
-| `dforge version` | Display the DevForge CLI version |
-| `dforge help` | Display all available commands |
-
-**Examples**:
 ```bash
-# Verify what's installed on your machine
-dforge doctor
-
-# Check for DevForge version
-dforge version
-
-# Re-run installer after editing configs/default.env
-dforge install
-
-# Run code quality checks
+# Execute local linter and unit tests
 dforge test
 ```
 
----
-
-## 🛠️ What Gets Installed
-
-| Category | Tools |
-|---|---|
-| **Runtimes** | Node.js (NVM), Python (uv), Java (SDKMAN!), Rust (Rustup), Go, C/C++ (GCC) |
-| **Cloud CLIs** | AWS CLI v2, Azure CLI, Google Cloud CLI |
-| **Developer Utilities** | Git, GitHub CLI, Lazygit, Git Delta, Tmux, Zoxide, Starship, Fzf, Ripgrep, Fd, Bat, Eza, Jq, Btop, Fastfetch |
-| **AI Coding CLIs** | Claude Code, Gemini CLI, OpenAI Codex |
-| **Shell Environment** | Zsh (default), Starship prompt, custom aliases, Fzf integrations, 100k history |
-
-> See [docs/features.md](docs/features.md) for the complete feature catalog.
-
----
-
-## ⚙️ Customization
-
-Edit configuration files in the `configs/` directory before running the installer:
-
-| File | Purpose |
-|---|---|
-| [`configs/default.env`](configs/default.env) | Feature toggles and version pinning |
-| [`configs/python_requirements.txt`](configs/python_requirements.txt) | Python libraries to install globally |
-| [`configs/npm_packages.txt`](configs/npm_packages.txt) | Global NPM packages |
-| [`configs/go_packages.txt`](configs/go_packages.txt) | Go binaries to install |
-| [`configs/cargo_packages.txt`](configs/cargo_packages.txt) | Rust crates to install |
-| [`configs/dotfiles/`](configs/dotfiles/) | Zshrc, Tmux config, and Starship theme |
-
-To disable a feature, open `configs/default.env` and set the toggle to `false`:
-```bash
-INSTALL_JAVA=false
-INSTALL_GCLOUD_CLI=false
-```
+Test scripts are hosted in the `tests/` directory.
 
 ---
 
 ## 📚 Documentation
 
-| Guide | Description |
-|---|---|
-| [WSL Setup](docs/wsl-setup.md) | How to install and configure WSL2 on Windows |
-| [VS Code Setup](docs/vscode-setup.md) | VS Code + WSL integration and recommended extensions |
-| [Features](docs/features.md) | Complete catalog of all DevForge capabilities |
+Detailed documents are available in the `docs/` folder:
 
+* **Command Line Interface Reference:** [docs/cli.md](docs/cli.md)
+* **APT Package Management:** [docs/apt.md](docs/apt.md)
+* **Homebrew Formula Tap Guide:** [docs/homebrew.md](docs/homebrew.md)
+* **CI/CD Release Automation:** [docs/cicd.md](docs/cicd.md)
+* **WSL2 Windows Environment Setup:** [docs/wsl-setup.md](docs/wsl-setup.md)
+* **VS Code Integration:** [docs/vscode-setup.md](docs/vscode-setup.md)
+
+For contributors and developers, please refer to the [Developer and Contribution Guide](DEVELOPER-GUIDE.md).

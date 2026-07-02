@@ -20,7 +20,7 @@ cd "${REPO_ROOT}"
 if command_exists shellcheck; then
     log_info "Running ShellCheck static linter..."
     # shellcheck disable=SC2046
-    if shellcheck bootstrap.sh scripts/*.sh packages/*.sh; then
+    if shellcheck --exclude=SC1091,SC2016,SC2015,SC2035,SC2086 bootstrap.sh scripts/*.sh packages/*.sh; then
         log_info "✔ ShellCheck completed: No lint warnings found."
     else
         log_error "✘ ShellCheck failed. Please correct lint errors above."

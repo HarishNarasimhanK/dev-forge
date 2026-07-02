@@ -21,7 +21,8 @@ install_linux() {
     fi
 
     # Architecture check
-    local arch="$(uname -m)"
+    local arch
+    arch="$(uname -m)"
     local zip_file="awscliv2.zip"
     local download_url=""
 

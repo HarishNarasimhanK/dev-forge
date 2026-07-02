@@ -25,7 +25,8 @@ install_linux() {
     if [[ "$current_ver" == "$TARGET_VER" ]]; then
         log_info "Go $TARGET_VER is already installed. Skipping download."
     else
-        local arch="$(uname -m)"
+        local arch
+        arch="$(uname -m)"
         local go_arch="amd64"
         if [[ "$arch" == "aarch64" || "$arch" == "arm64" ]]; then
             go_arch="arm64"

@@ -11,14 +11,16 @@ while [ -h "$SOURCE" ]; do
 done
 RESOLVED_DIR="$(cd -P "$(dirname "$SOURCE")" && pwd)"
 
-# If installed via APT or Homebrew, search for shared assets in standard directories
+# Use resolved directory if bootstrap.sh exists (local dev), otherwise search standard global paths
 REPO_ROOT="$RESOLVED_DIR"
-for path in "/usr/local/share/dev-forge" "/opt/homebrew/share/dev-forge" "/home/linuxbrew/.linuxbrew/share/dev-forge"; do
-    if [ -f "$path/bootstrap.sh" ]; then
-        REPO_ROOT="$path"
-        break
-    fi
-done
+if [ ! -f "$RESOLVED_DIR/bootstrap.sh" ]; then
+    for path in "/usr/local/share/dev-forge" "/opt/homebrew/share/dev-forge" "/home/linuxbrew/.linuxbrew/share/dev-forge"; do
+        if [ -f "$path/bootstrap.sh" ]; then
+            REPO_ROOT="$path"
+            break
+        fi
+    done
+fi
 
 VERSION="0.1.0"
 

@@ -64,7 +64,7 @@ if [[ "${INSTALL_LANG_LIBS:-false}" == "true" ]]; then
         # Try installing on system Python using pip/pip3 if present
         if command_exists pip3 || command_exists pip; then
             log_info "Installing libraries on system Python via pip..."
-            local PIP_CMD="pip3"
+            PIP_CMD="pip3"
             if ! command_exists pip3; then PIP_CMD="pip"; fi
             # shellcheck disable=SC2086
             $PIP_CMD install --user --break-system-packages $py_packages &>/dev/null || log_warn "System-level pip package install failed or was partially skipped."
