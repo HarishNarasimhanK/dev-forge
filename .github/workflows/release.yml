@@ -1,0 +1,120 @@
+name: Release DevForge APT Package
+on:
+  push:
+    tags:
+      - 'v*' # Trigger on version tags (e.g., v1.0.0)
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # Required to upload assets to releases and push to gh-pages
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Needed for git describe to extract version tags
+
+      - name: Install Packaging Tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y dpkg-dev dpkg-sig gnupg
+
+      - name: Import GPG Private Key
+        id: import_gpg
+        env:
+          DEVFORGE_GPG_PRIVATE: ${{ secrets.DEVFORGE_GPG_PRIVATE }}
+        run: |
+          if [ -z "$DEVFORGE_GPG_PRIVATE" ]; then
+            echo "Error: DEVFORGE_GPG_PRIVATE secret is not set!"
+            exit 1
+          fi
+          echo "$DEVFORGE_GPG_PRIVATE" | gpg --import --batch
+          KEYID=$(gpg --list-keys --with-colons | awk -F: '/^pub/ {print $5; exit}')
+          echo "keyid=$KEYID" >> $GITHUB_ENV
+          echo "Imported GPG Key: $KEYID"
+
+      - name: Build and Sign .deb Package
+        env:
+          GPG_KEYID: ${{ env.keyid }}
+        run: |
+          chmod +x scripts/package.sh
+          ./scripts/package.sh
+
+      - name: Upload Release Asset
+        uses: softprops/action-gh-release@v2
+        with:
+          files: devforge_*.deb
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Update static APT Repo (gh-pages)
+        env:
+          GPG_KEYID: ${{ env.keyid }}
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          
+          # Clone the gh-pages branch into a temp folder
+          # If gh-pages doesn't exist, we create it
+          git clone --depth 1 --branch gh-pages https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} repo-ghpages || {
+            mkdir repo-ghpages
+            cd repo-ghpages
+            git init
+            git checkout -b gh-pages
+            cd ..
+          }
+          
+          # Copy the built package and public keyring key
+          cp devforge_*.deb repo-ghpages/
+          mkdir -p repo-ghpages/keys
+          if [ -f keys/devforge-archive-keyring.gpg ]; then
+            cp keys/devforge-archive-keyring.gpg repo-ghpages/keys/
+          fi
+          
+          # Also copy the installer script so it is hosted at the root
+          cp install-devforge.sh repo-ghpages/
+          
+          cd repo-ghpages
+          
+          # Run repo update script logic locally on the gh-pages workspace
+          dpkg-scanpackages . /dev/null | gzip -9c > Packages.gz
+          
+          # Generate Release metadata
+          cat > Release <<EOF
+          Archive: stable
+          Component: main
+          Origin: devforge
+          Label: devforge
+          Version: \$(date +%Y%m%d%H%M)
+          Codename: stable
+          Architectures: all
+          Date: \$(date -R)
+          Description: DevForge Debian/Ubuntu APT repository
+          EOF
+          # Strip the leading spaces from the Release file
+          sed -i 's/^[[:space:]]*//' Release
+          
+          # Append hash sums
+          echo "MD5Sum:" >> Release
+          md5_pkg=$(md5sum Packages.gz | awk '{print $1}')
+          size_pkg=$(wc -c < Packages.gz | tr -d ' ')
+          echo " $md5_pkg $size_pkg Packages.gz" >> Release
+          
+          echo "SHA256:" >> Release
+          sha_pkg=$(sha256sum Packages.gz | awk '{print $1}')
+          echo " $sha_pkg $size_pkg Packages.gz" >> Release
+          
+          # Sign the Release files
+          gpg --default-key ${{ env.keyid }} --digest-algo SHA256 -abs -y -o Release.gpg Release
+          gpg --default-key ${{ env.keyid }} --digest-algo SHA256 --clearsign -y -o InRelease Release
+          
+          # Commit and Push back to gh-pages branch
+          git add .
+          # Check if there are any changes to commit
+          if git diff --quiet && git diff --staged --quiet; then
+            echo "No changes to commit to gh-pages."
+          else
+            git commit -m "Update APT Repo for tag ${{ github.ref_name }}"
+            git push origin gh-pages
+          fi

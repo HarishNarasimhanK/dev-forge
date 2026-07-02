@@ -39,7 +39,26 @@ DevForge encodes that ritual as code, guided by five principles:
 > [!IMPORTANT]
 > **Windows Users**: DevForge runs inside WSL2 (Windows Subsystem for Linux). If you do not have WSL2 set up yet, please follow the step-by-step [WSL Setup Guide](docs/wsl-setup.md) first.
 
-### Step 1: Ensure Git is Installed
+### Method 1: APT Installation (Ubuntu / WSL - Recommended)
+
+For Debian-based systems and WSL Ubuntu environments, you can install and update DevForge using the native APT package manager:
+
+```bash
+# Add the repository and GPG signing key
+curl -fsSL https://harishnarasimhank.github.io/dev-forge/install-devforge.sh | sudo bash
+
+# Install devforge
+sudo apt install -y devforge
+
+# Bootstrap the workstation
+dforge init
+```
+
+### Method 2: Manual Git Clone (macOS & Development)
+
+If you are on macOS or want to modify DevForge directly:
+
+#### Step 1: Ensure Git/Command Line Tools are Installed
 
 **Ubuntu / WSL**:
 ```bash
@@ -50,10 +69,10 @@ sudo apt update && sudo apt install -y git
 xcode-select --install
 ```
 
-### Step 2: Clone and Bootstrap
+#### Step 2: Clone and Bootstrap
 
 ```bash
-git clone https://github.com/your-username/dev-forge.git
+git clone https://github.com/HarishNarasimhanK/dev-forge.git
 cd dev-forge
 ./dforge init
 ```
