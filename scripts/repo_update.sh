@@ -56,12 +56,14 @@ echo " $sha_pkg $size_pkg Packages.gz" >> "$REPO_DIR/Release"
 if [[ -n "${GPG_KEYID-}" ]]; then
   if gpg --list-keys "$GPG_KEYID" &> /dev/null; then
     echo "Signing Release with GPG Key ID: $GPG_KEYID"
-    gpg_opts=""
+    gpg_opts="--batch --pinentry-mode loopback"
     if [[ -n "${GPG_PASSPHRASE-}" ]]; then
-      gpg_opts="--batch --pinentry-mode loopback --passphrase-env GPG_PASSPHRASE"
+      echo "$GPG_PASSPHRASE" | gpg $gpg_opts --passphrase-fd 0 --default-key "$GPG_KEYID" --digest-algo SHA256 -abs -o "$REPO_DIR/Release.gpg" "$REPO_DIR/Release"
+      echo "$GPG_PASSPHRASE" | gpg $gpg_opts --passphrase-fd 0 --default-key "$GPG_KEYID" --digest-algo SHA256 --clearsign -o "$REPO_DIR/InRelease" "$REPO_DIR/Release"
+    else
+      gpg --default-key "$GPG_KEYID" --digest-algo SHA256 -abs -o "$REPO_DIR/Release.gpg" "$REPO_DIR/Release"
+      gpg --default-key "$GPG_KEYID" --digest-algo SHA256 --clearsign -o "$REPO_DIR/InRelease" "$REPO_DIR/Release"
     fi
-    gpg $gpg_opts --default-key "$GPG_KEYID" --digest-algo SHA256 -abs -o "$REPO_DIR/Release.gpg" "$REPO_DIR/Release"
-    gpg $gpg_opts --default-key "$GPG_KEYID" --digest-algo SHA256 --clearsign -o "$REPO_DIR/InRelease" "$REPO_DIR/Release"
     echo "✅ Signed successfully."
   else
     echo "Warning: GPG Key ID '$GPG_KEYID' not found in local keyring. Skipping Release signing."
