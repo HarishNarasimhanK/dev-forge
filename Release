@@ -2,12 +2,14 @@ Archive: stable
 Component: main
 Origin: devforge
 Label: devforge
-Version: 202607021206
+Version: 202607021223
 Codename: stable
 Architectures: all
-Date: Thu, 02 Jul 2026 12:06:56 +0000
+Date: Thu, 02 Jul 2026 12:23:03 +0000
 Description: DevForge Debian/Ubuntu APT repository
 MD5Sum:
- 0c9cd19569cafbfc81075373983f55ae 376 Packages.gz
+ 028dfbca93a045349148088b2e315af9 476 Packages
+ 8c751bb7b27e17f76068ea937557bcbf 385 Packages.gz
 SHA256:
- a4d0b04538b4cd2ed94e917cff52babe9a820564a90cec18589456fd4c2ef5b6 376 Packages.gz
+ bd2cc24c13d63af4c22f064d1dee4cb310f7e46e85fe370a859be12b85b5508a 476 Packages
+ 01ebd17befbff9d888002d756e960679d4267b9973f5ee3e2ff8d57b6822f7e7 385 Packages.gz
