@@ -20,7 +20,7 @@ curl -fsSL "$KEY_URL" | sudo gpg --dearmor -o /usr/share/keyrings/devforge-archi
 # 2. Add repository source entry
 echo "Adding repository entry to /etc/apt/sources.list.d/devforge.list..."
 sudo tee /etc/apt/sources.list.d/devforge.list > /dev/null <<EOF
-deb [signed-by=/usr/share/keyrings/devforge-archive-keyring.gpg] $REPO_URL stable main
+deb [signed-by=/usr/share/keyrings/devforge-archive-keyring.gpg] $REPO_URL ./
 EOF
 
 # 3. Update APT cache
