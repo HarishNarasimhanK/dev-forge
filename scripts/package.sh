@@ -50,14 +50,8 @@ DEB_NAME="devforge_${VERSION}_all.deb"
 
 dpkg-deb --build "$BUILD_DIR" "$DEB_NAME"
 
-# 7️⃣ Sign the .deb (requires the private GPG key to be imported in the environment)
-# The CI will set GPG_KEYID; on a local machine you can set it manually.
-if [[ -n "${GPG_KEYID-}" ]]; then
-  dpkg-sig -k "$GPG_KEYID" -s builder "$DEB_NAME"
-  echo "Package signed with key $GPG_KEYID"
-else
-  echo "No GPG_KEYID set – skipping signing"
-fi
+# 7️⃣ APT repository security relies on signing the Release index file,
+# not individual .deb packages. We do not need to sign the .deb itself.
 
 # 8️⃣ Clean up temporary build directory
 rm -rf "$BUILD_DIR"

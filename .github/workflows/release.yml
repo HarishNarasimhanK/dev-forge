@@ -18,7 +18,7 @@ jobs:
       - name: Install Packaging Tools
         run: |
           sudo apt-get update
-          sudo apt-get install -y dpkg-dev dpkg-sig gnupg
+          sudo apt-get install -y dpkg-dev gnupg
 
       - name: Import GPG Private Key
         id: import_gpg
@@ -51,6 +51,7 @@ jobs:
       - name: Update static APT Repo (gh-pages)
         env:
           GPG_KEYID: ${{ env.keyid }}
+          GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
@@ -105,9 +106,14 @@ jobs:
           sha_pkg=$(sha256sum Packages.gz | awk '{print $1}')
           echo " $sha_pkg $size_pkg Packages.gz" >> Release
           
-          # Sign the Release files
-          gpg --default-key ${{ env.keyid }} --digest-algo SHA256 -abs -y -o Release.gpg Release
-          gpg --default-key ${{ env.keyid }} --digest-algo SHA256 --clearsign -y -o InRelease Release
+          # Sign the Release files using loopback passphrase if set
+          gpg_opts="--batch --pinentry-mode loopback"
+          if [ -n "$GPG_PASSPHRASE" ]; then
+            gpg_opts="$gpg_opts --passphrase-env GPG_PASSPHRASE"
+          fi
+          
+          gpg $gpg_opts --default-key ${{ env.keyid }} --digest-algo SHA256 -abs -y -o Release.gpg Release
+          gpg $gpg_opts --default-key ${{ env.keyid }} --digest-algo SHA256 --clearsign -y -o InRelease Release
           
           # Commit and Push back to gh-pages branch
           git add .
