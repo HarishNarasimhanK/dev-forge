@@ -1,0 +1,32 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA256
+
+Archive: stable
+Component: main
+Origin: devforge
+Label: devforge
+Version: $(date +%Y%m%d%H%M)
+Codename: stable
+Architectures: all
+Date: $(date -R)
+Description: DevForge Debian/Ubuntu APT repository
+MD5Sum:
+ 9e30c0e0647929c1d335e9613c155cf3 377 Packages.gz
+SHA256:
+ 8b29df86e562c67552879d783b42bd09ddfab4df614589a95dc754d50ee0aef2 377 Packages.gz
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEZxwuktOdatWiKyuSZFOIcEOC7coFAmpGT9oACgkQZFOIcEOC
+7cq16RAAi4npMaNjLNrwFkYf6eL65nffDbOjGtAOlxH3co1Q0bSYLlT1NWq8FJXa
+2TdONuWIZ3iPF+MX/EGRe9kyxZWuLLDkvQ+9ViVCG6XOswcPQ+DI2VNuOnqhHUAU
+cDuR5PqgcnI6BCU2Dvq/QXVUZtweq5/G+CmHZKNWP9zZMgGCltQs0VQFb1HE4YcS
+jzAaE3UlVCdB0UyV8AReuFZJPYKoztkPb8ygi5P5iFBw3KPg7iIHMRQjtd0jmp4A
+Zn+0RQGrvpicgBOGyYuaOAdE99CQtWsP4Uxry1AV8/tAeFcjjhe94CuhZb2iJiDx
+TAC/0+hODeSisBcEhrdLOLw1F2v+IaT5d8U0gMhSeD3RtCSTPm5rA/oJ+EpHxLln
+VSEPcpwRgGV4B74afOMqpXom4ULLXh3g80y83+jcP7t1BGhvvWF37nVsApQGsoDi
+9rlt2DQsq2MzzYPaAUi3BI4AcwGcGnOy5puqdgP1DOGE3x1c5z9APQhwEZ3/mFLS
+TbEf3lPwmtUQWuPqRWV/D9Na0+B3QToMiIcp5WrNFf7IYcTxkF6NuWP8UXD+DURS
+W5wHoPIVRFpQbxmqOzSXEYf4Yw6zhpZ1pSYTvrDcCtZ/Cba5W/Mvz1+2DXQMDNAf
+YJRxoOa0VXb/gIjm5b3N9ggHT/jTdh8dfDebzLeTuZAjUUWPLkU=
+=cRCL
+-----END PGP SIGNATURE-----
