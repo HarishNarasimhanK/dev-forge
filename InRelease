@@ -5,28 +5,28 @@ Archive: stable
 Component: main
 Origin: devforge
 Label: devforge
-Version: $(date +%Y%m%d%H%M)
+Version: 202607021206
 Codename: stable
 Architectures: all
-Date: $(date -R)
+Date: Thu, 02 Jul 2026 12:06:56 +0000
 Description: DevForge Debian/Ubuntu APT repository
 MD5Sum:
- 6ca9dec3feca7ad41dc4732b1f1e9daa 375 Packages.gz
+ 0c9cd19569cafbfc81075373983f55ae 376 Packages.gz
 SHA256:
- e2025bbeb9f894be3278c25c59c8c8707e22d25fd65930dc3dfb96942645b137 375 Packages.gz
+ a4d0b04538b4cd2ed94e917cff52babe9a820564a90cec18589456fd4c2ef5b6 376 Packages.gz
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCAAdFiEEZxwuktOdatWiKyuSZFOIcEOC7coFAmpGUooACgkQZFOIcEOC
-7coumxAAgVGLlXivlRQSQ5GEwM//ZJviEduaSfG/sTu958OTiYGKviDRrfC0WH2U
-/skcL9Qq+Qmmh0OatilexmHxV658RTaSuXmKMGWdksuE5pezLEEOYzQtvfJdXIj9
-dywHXlBj653D7Sj2Jil4KDdr/X+sARhpZBVlOtrD4wJI1Zlqnr0WhWRSWlLT/j82
-gHSlM2q0kFGIopMwjKW+z1y0Wi0y24cAV0FxI45Rik8C2OmRpaQJqZVEETm+/Tk9
-A6F3IcqS22bfTFGBKo1s4wX4LUM/vAj7Uz1sxWvlTY8Dknw56jvYsfm++ojjNtQ8
-Uf4U4XsR3ZoR08gx0LgK2cOXM2crZT4tZJmMBmfLVjvnoiIFJF4PelRqRYLY3w+d
-fCvDrb9pWkxmk4rQ7KsgJcm5XQLeWDaaq3DYEi5hnERz/ZNks5NCdkZBIfz31Uf6
-9GpFeSozKXh4ZfSPt3Wc87pBgntLFR1OieZBMjTcF1/31V2utiyNewXloAJU4sgE
-49nliIbwdXG2RrNhX/NN7qwGas9xO7e1Ql+dsu6TYopPiiaJMtfglGG+4ihSoHwl
-NWdM3WQEimanksbIzth3xXzAMnN0dNx+gr6eIecLolAje5AmGPgMjQIjRfx6dbOR
-K3SyK6Tarzz/srGkJBwJR6G8B+PC28RQ2u4PfizrlwMRQ6W9VBk=
-=cWYr
+iQIzBAEBCAAdFiEEZxwuktOdatWiKyuSZFOIcEOC7coFAmpGVGEACgkQZFOIcEOC
+7cokqA/+MNyHTGlv9JpkzXnZ3hFYvteHttv23xo8WKIARp3BaY9r8rrfNc1uhMCQ
+WNMXVZMQVd2ho9GyLmIULM/LByt5FqnEOchT+2/Me/qiyzaUs1eo7PX4wcRikIZf
+OeabLgitvLpRPoz0iPE9/JTMVUSsBJSgugl4do0CdJ6YeeIDfKrwmyAIc52ZTJN+
+v9EeihWg0H5tV2QOgOymmVpYLRhChs/coxLBjM6mAQxEVa0UdkQHzyvecMXBBj22
+b0KBIWALdcbGd8IUSJErvffwrdG6QGLcPUovx8adfs+htpM1ws1jtaB6y8yvnmN8
+cY/CW4IsNMIgNpUlWwDrR3UgqM5tcRQECZTt/L0+XEbcorr0ebIbOV/rHfrjY8t7
+owRuXuzXJKWSRBLz+337BmzC58oS+o1OIiPfCyi0nFbhQFgnxJe2/aWNtJihHYay
+QZBMVnS8mHEgM17JnC19Zxr6Z8bXBLIK8SaBtDFflA/xG6+LXjVoO7oV3f1G2s+w
+m/v8sa4S/w6zad/W5vxBDMQHrS4QFu7kD1RyK9Zw4YnSEoihc5k7rGqzc+GqlEwA
+NmXvAFHcSF251mhbIJcafDsamiObEBwytSg7jKdLXmLOaGmAys2jG4KfRkRMeyrZ
+G9LR/HFHJKLbrB46QeDZDp/QVfUI4OHco8HWKNW2HsyIYFm7cEA=
+=RYlg
 -----END PGP SIGNATURE-----
