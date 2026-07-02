@@ -9,7 +9,16 @@ while [ -h "$SOURCE" ]; do
     SOURCE="$(readlink "$SOURCE")"
     [[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE"
 done
-REPO_ROOT="$(cd -P "$(dirname "$SOURCE")" && pwd)"
+RESOLVED_DIR="$(cd -P "$(dirname "$SOURCE")" && pwd)"
+
+# If installed via APT or Homebrew, search for shared assets in standard directories
+REPO_ROOT="$RESOLVED_DIR"
+for path in "/usr/local/share/dev-forge" "/opt/homebrew/share/dev-forge" "/home/linuxbrew/.linuxbrew/share/dev-forge"; do
+    if [ -f "$path/bootstrap.sh" ]; then
+        REPO_ROOT="$path"
+        break
+    fi
+done
 
 VERSION="0.1.0"
 

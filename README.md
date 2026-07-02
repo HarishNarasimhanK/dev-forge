@@ -54,9 +54,24 @@ sudo apt install -y devforge
 dforge init
 ```
 
-### Method 2: Manual Git Clone (macOS & Development)
+### Method 2: Homebrew Installation (macOS & Linux)
 
-If you are on macOS or want to modify DevForge directly:
+For macOS or systems using Homebrew, you can install and update DevForge using your custom tap:
+
+```bash
+# Tap the repository
+brew tap harishnarasimhank/devforge
+
+# Install devforge
+brew install devforge
+
+# Bootstrap the workstation
+dforge init
+```
+
+### Method 3: Manual Git Clone (Development)
+
+If you want to modify DevForge directly or run it from source:
 
 #### Step 1: Ensure Git/Command Line Tools are Installed
 

@@ -125,7 +125,7 @@ jobs:
             gpg $gpg_opts --default-key ${{ env.keyid }} --digest-algo SHA256 --clearsign --yes -o InRelease Release
           fi
           
-          # Commit and Push back to gh-pages branch
+           # Commit and Push back to gh-pages branch
           git add .
           # Check if there are any changes to commit
           if git diff --quiet && git diff --staged --quiet; then
@@ -134,3 +134,49 @@ jobs:
             git commit -m "Update APT Repo for tag ${{ github.ref_name }}"
             git push origin gh-pages
           fi
+
+      - name: Update Homebrew Tap
+        env:
+          TAP_GITHUB_TOKEN: ${{ secrets.TAP_GITHUB_TOKEN }}
+        run: |
+          if [ -z "$TAP_GITHUB_TOKEN" ]; then
+            echo "TAP_GITHUB_TOKEN is not set. Skipping Homebrew Tap release."
+            exit 0
+          fi
+
+          # Get version tag without 'v' prefix
+          VERSION=$(echo "${{ github.ref_name }}" | sed 's/^v//')
+          
+          # Download source tarball and compute SHA256
+          TARBALL_URL="https://github.com/${{ github.repository }}/archive/refs/tags/${{ github.ref_name }}.tar.gz"
+          echo "Downloading source tarball from $TARBALL_URL ..."
+          curl -fsSL "$TARBALL_URL" -o source.tar.gz
+          SHA256=$(sha256sum source.tar.gz | awk '{print $1}')
+          echo "Source tarball SHA256: $SHA256"
+
+          # Clone the tap repository
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          
+          git clone https://x-access-token:${TAP_GITHUB_TOKEN}@github.com/HarishNarasimhanK/homebrew-tap.git homebrew-tap
+          
+          # Update the formula file in the tap repo directly using sed
+          FORMULA_FILE="homebrew-tap/Formula/devforge.rb"
+          if [ -f "$FORMULA_FILE" ]; then
+            sed -i "s|url \"https://github.com/HarishNarasimhanK/dev-forge/archive/refs/tags/v.*.tar.gz\"|url \"https://github.com/HarishNarasimhanK/dev-forge/archive/refs/tags/v$VERSION.tar.gz\"|g" "$FORMULA_FILE"
+            sed -i "s|sha256 \".*\"|sha256 \"$SHA256\"|g" "$FORMULA_FILE"
+            sed -i "s|version \".*\"|version \"$VERSION\"|g" "$FORMULA_FILE"
+          else
+            echo "Error: Formula file not found in homebrew-tap repo!"
+            exit 1
+          fi
+          
+          cd homebrew-tap
+          git add Formula/devforge.rb
+          if git diff --quiet && git diff --staged --quiet; then
+            echo "No changes in Homebrew Tap."
+          else
+            git commit -m "Update devforge formula to version $VERSION"
+            git push origin
+          fi
+
