@@ -109,11 +109,11 @@ jobs:
           # Sign the Release files using loopback passphrase if set
           gpg_opts="--batch --pinentry-mode loopback"
           if [ -n "$GPG_PASSPHRASE" ]; then
-            echo "$GPG_PASSPHRASE" | gpg $gpg_opts --passphrase-fd 0 --default-key ${{ env.keyid }} --digest-algo SHA256 -abs -y -o Release.gpg Release
-            echo "$GPG_PASSPHRASE" | gpg $gpg_opts --passphrase-fd 0 --default-key ${{ env.keyid }} --digest-algo SHA256 --clearsign -y -o InRelease Release
+            echo "$GPG_PASSPHRASE" | gpg $gpg_opts --passphrase-fd 0 --default-key ${{ env.keyid }} --digest-algo SHA256 -abs --yes -o Release.gpg Release
+            echo "$GPG_PASSPHRASE" | gpg $gpg_opts --passphrase-fd 0 --default-key ${{ env.keyid }} --digest-algo SHA256 --clearsign --yes -o InRelease Release
           else
-            gpg $gpg_opts --default-key ${{ env.keyid }} --digest-algo SHA256 -abs -y -o Release.gpg Release
-            gpg $gpg_opts --default-key ${{ env.keyid }} --digest-algo SHA256 --clearsign -y -o InRelease Release
+            gpg $gpg_opts --default-key ${{ env.keyid }} --digest-algo SHA256 -abs --yes -o Release.gpg Release
+            gpg $gpg_opts --default-key ${{ env.keyid }} --digest-algo SHA256 --clearsign --yes -o InRelease Release
           fi
           
           # Commit and Push back to gh-pages branch
