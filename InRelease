@@ -5,30 +5,30 @@ Archive: stable
 Component: main
 Origin: devforge
 Label: devforge
-Version: 202607021231
+Version: 202607021307
 Codename: stable
 Architectures: all
-Date: Thu, 02 Jul 2026 12:31:24 +0000
+Date: Thu, 02 Jul 2026 13:07:01 +0000
 Description: DevForge Debian/Ubuntu APT repository
 MD5Sum:
- e2491c7f494b5e6b678b1ca1934050d4 476 Packages
- a5016bcae722a16e6d635f6a691a3571 383 Packages.gz
+ cdbede66a47e488c530d4def58e27bd9 476 Packages
+ b120faaf14f13182b7e79c0c4661216a 385 Packages.gz
 SHA256:
- 44f08e425ff6e979aacdbd6c98e6b8a37218d0ecb36493cf9e52aae22511b5ea 476 Packages
- cdd892c2faa32473ab0ad16c90fe7f226cb6fe95070335138c8ccc32d1bf971c 383 Packages.gz
+ 2b4639e7dac0cb4daa6475087fbf0b69f45f648d5fe34c6ced79719a56966d72 476 Packages
+ 0a0f73cc72e01be0a18533b66d04bb05a68b803f9eaeb00ec2123cca7a53b0e1 385 Packages.gz
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCAAdFiEEZxwuktOdatWiKyuSZFOIcEOC7coFAmpGWh0ACgkQZFOIcEOC
-7cqe8g//Rbu/nnXV2NO9/PplZ+ZFYH4D+tbNtbWP+VY2gB0e+2EIc3M+9RjPE+Jk
-ml+oQJZhXG6INVv6YNo5oC5ut8WzuoA+hqTNXCmg2qj5WXcsrmU+OpmqzQCksYyC
-/BmwmoyW2Q9Ffqyp+odlxFgtN/+ZKM3HFhXYRT5XSfSr0QNUG32S5Vcb3sQAhGco
-kReDTCfueoKi7WbV/nukcmYQUAPGU3Id2O2zmKgK5NFfzyuGFMTgUQL1z7zueREw
-i6KBygHPaaz0LqiSWsqgcsAPAdxoJKuokPuOqKGuEMm39Dw75EqID/8tLTE0aAT7
-hs6L5avM5TI+BKzshqWeGxXGOrU24rGKkrXtt03e8KUpwJf6CA0GmQEhguTLMOra
-SrRKyC2AXuDpX0W08U/Z98/bks3xsxXnTEQaO6FZswA/TptqpqcZ2odcH+8vN9C5
-sQ47VKzZYU7VEQyP++l/2T+sLNgRetyjspx5QFrA9hKI5jw6iKNOE23TbvjW4mEf
-WlPuDiNz9ZIXnLkKh4b/qrgeCyCHjPIIxwx+Ss4BqgibeJ6fF/G7ZTEeE4JnruM+
-E8qYqVq9//LJgvvDPpDKbrogR78ebSulnvKlhZ0maHRtuFkCLGc9j4SM2h56ZVmd
-6JK9s/+BLyAo79PdzlzfeYBoTWb06Hh5YhR8PfAbmAvwfY9voec=
-=Phc/
+iQIzBAEBCAAdFiEEZxwuktOdatWiKyuSZFOIcEOC7coFAmpGYnYACgkQZFOIcEOC
+7cp4wQ//cCaVoxM6cNJ/4n5Qtj4jVb4UlnQE1t/LydE4tEToCmTZdZsRAf0bXu3c
+VnNkTsR7kO/MUqbFJb9Dsx+RenoqozjvX5OjVMHMu0OYG58J0PLiMIBbjrDZn/qb
+l41zvz8I9TYuAehwJb7NkR+i0LbLK4wsWTAsZXcZ1jBMxWzwbFqWiSqLyqIeLuFc
+PPz5tJ5SArkK+x7aKfNNEdDc2819PoOq7SPGaO8FE7MqLtYbnUHibTepjZ3Gv6wy
+XSigsnxEqj9hNppJPfg4pDPhMJDRaPxTtritpCqqe3VRJaOJIdp/okAPjN0XWhmR
+2NiMMuLvzkWFHhd3J1pRmVzwP9BZTfJCWA1LtU1P9n1dm2+S6tWB48KTv0HBCKIa
+buLyEyfmKo1YH32Yxm40bNKJNV1jplg7fNwLIa55DPiRGQOTXC5KZXrmm0swjhJJ
+OCfUHtNJwVC7BTVpvlbSgm/1KjZX+HpNcwnk+4qnPxcXaCdd5Dwhzn5RWvssoHlf
+nNy+c2oPACvvbaumocrkoffo4VA6EmtfNXIdSor4ovjY5SjWR/RZe5guFyizLLXO
+vNK0AeUIJWU2zHE1+6q3T5BUqkXEUpXaf0+GZaQAA0LlQu41FbXr7hFtKznAUipt
+VsYOihP0I3S5dXYIBXhV3/GpOEbUrAlqh8uooWTfX4bipXgASLQ=
+=ZuiU
 -----END PGP SIGNATURE-----
