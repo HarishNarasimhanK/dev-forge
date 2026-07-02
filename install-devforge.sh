@@ -15,7 +15,7 @@ echo "Setting up DevForge APT repository..."
 # 1. Download and install GPG keyring
 echo "Importing repository signing key..."
 sudo mkdir -p /usr/share/keyrings
-curl -fsSL "$KEY_URL" | sudo gpg --dearmor -o /usr/share/keyrings/devforge-archive-keyring.gpg
+curl -fsSL "$KEY_URL" | sudo gpg --yes --dearmor -o /usr/share/keyrings/devforge-archive-keyring.gpg
 
 # 2. Add repository source entry
 echo "Adding repository entry to /etc/apt/sources.list.d/devforge.list..."
