@@ -88,10 +88,10 @@ jobs:
           Component: main
           Origin: devforge
           Label: devforge
-          Version: \$(date +%Y%m%d%H%M)
+          Version: $(date +%Y%m%d%H%M)
           Codename: stable
           Architectures: all
-          Date: \$(date -R)
+          Date: $(date -R)
           Description: DevForge Debian/Ubuntu APT repository
           EOF
           # Strip the leading spaces from the Release file
