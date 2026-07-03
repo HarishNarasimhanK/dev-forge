@@ -88,6 +88,7 @@ Toggle: `INSTALL_DEV_TOOLS`
 | **Htop / Btop** | Interactive system process monitors |
 | **Fastfetch** | System information display |
 | **Make / CMake** | Build system tooling |
+| **Wl-clipboard / Xclip** | System clipboard integration utilities (Linux/WSL) |
 
 Toggle: `INSTALL_DEV_TOOLS`
 

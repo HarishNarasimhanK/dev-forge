@@ -16,7 +16,7 @@ install_linux() {
         
         # All required utilities
         sudo apt-get install -y -qq \
-            zsh tmux zoxide fzf ripgrep fd-find jq tree \
+            zsh tmux zoxide fzf ripgrep fd-find jq tree wl-clipboard xclip \
             htop btop unzip zip curl wget make cmake build-essential gh bat shellcheck bats || log_warn "Some package installs failed. Continuing..."
     else
         log_warn "apt-get package manager not found. Skipping apt package installation."
